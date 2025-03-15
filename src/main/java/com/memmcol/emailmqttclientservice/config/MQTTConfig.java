@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MQTTConfig {
 
-    private static final String BROKER_URL = "tcp://broker.hivemq.com:1883"; //"tcp://iot.memmserve.com:1883";
+    private static final String BROKER_URL = "tcp://iot.memmserve.com:1883"; //tcp://broker.hivemq.com:1883";
     private static final String CLIENT_ID = "mqtt-client-" + System.currentTimeMillis();
 
     @Bean
