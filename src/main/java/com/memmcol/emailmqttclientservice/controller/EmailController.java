@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = "*") // Allow all origins
 @RequestMapping("/api")
 public class EmailController {
     @Autowired
