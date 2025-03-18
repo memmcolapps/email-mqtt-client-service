@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 //import javax.mail.MessagingException;
 import java.util.Map;
 
-@RestController
 @CrossOrigin(origins = "*") // Allow all origins
+@RestController
 @RequestMapping("/api")
 public class EmailController {
     @Autowired
