@@ -1,9 +1,13 @@
 package com.memmcol.emailmqttclientservice.controller;
 
+import com.memmcol.emailmqttclientservice.model.ExceptionErrorLogs;
+import com.memmcol.emailmqttclientservice.repository.ExceptionAuditRepository;
 import com.memmcol.emailmqttclientservice.service.EmailService;
 import com.memmcol.emailmqttclientservice.util.ResponseMap;
 import com.memmcol.emailmqttclientservice.util.ResponseProperties;
 import jakarta.mail.MessagingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 //import javax.mail.MessagingException;
@@ -13,10 +17,16 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 public class EmailController {
+
+    private static final Logger log = LoggerFactory.getLogger(EmailController.class);
     @Autowired
     private ResponseProperties status;
 
     private final EmailService emailService;
+
+    @Autowired private ExceptionAuditRepository exceptionAuditRepository;
+
+    private final ExceptionErrorLogs exceptionErrorLogs = new ExceptionErrorLogs();
 
     public EmailController(EmailService emailService) {
         this.emailService = emailService;
@@ -35,8 +45,13 @@ public class EmailController {
             System.out.println(">>>>>>>>>>>>>> email service reached <<<<<<<<<<<<<<<<<<<");
             emailService.sendEmail(toAddress, subject, text, htmlContent);
             return ResponseMap.response(status.getSuccessCode(), "Email sent successfully!", "");
-        } catch (Exception e){
-            throw e;
+        } catch (Exception exception){
+            log.error("Error occurred while [ACTION]: {}", exception.getMessage(), exception);
+            exceptionErrorLogs.setDescription("Error occurred while sending email");
+            exceptionErrorLogs.setError_message(exception.getMessage());
+            exceptionErrorLogs.setError(exception);
+            exceptionAuditRepository.save(exceptionErrorLogs);
+            throw exception;
         }
 
     }

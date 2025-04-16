@@ -1,27 +1,39 @@
 package com.memmcol.emailmqttclientservice.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Document(collection = "Audits-Log")
-public class MqttMessageEntity {
+public class MqttMessageEntity implements Serializable {
 
     @Id
     private String id;
-    private String sbcId;
-    private String topic;
-    private String description;
-    private String type;
-    private LocalDateTime createdAt;
 
-    public MqttMessageEntity(String sbcId, String topic, String description, String type, LocalDateTime receivedAt) {
+    private String sbcId;
+
+    private String topic;
+
+    private String description;
+
+    private String status;
+
+    private String type;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createdAt;
+
+    public MqttMessageEntity(String sbcId, String topic, String status, String description, String type) {
         this.sbcId = sbcId;
         this.topic = topic;
+        this.status = status;
         this.description = description;
         this.type = type;
-        this.createdAt = receivedAt;
+        this.createdAt = new Date();
     }
 
     public String getId() {
@@ -52,8 +64,16 @@ public class MqttMessageEntity {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(String status) {
         this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getType() {
@@ -64,11 +84,11 @@ public class MqttMessageEntity {
         this.type = type;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 }

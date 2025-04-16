@@ -1,5 +1,5 @@
 server:
-  port: 8086
+  port: 8084
 
 #spring:
 #  application:
@@ -18,7 +18,8 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: https://eureka-service-production-6595.up.railway.app/eureka/
+      defaultZone: http://localhost:8761/eureka/
+      # https://eureka-service-production-6595.up.railway.app/eureka/ #memmcolapp railway address
       # https://eureka-service-production.up.railway.app/eureka/
 
 management:
