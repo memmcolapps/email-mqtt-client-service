@@ -19,10 +19,16 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
-      # https://eureka-service-production-6595.up.railway.app/eureka/ #memmcolapp railway address
-      # https://eureka-service-production.up.railway.app/eureka/
+  instance:
+    prefer-ip-address: true                # Register using IP instead of hostname
+    ip-address: ${spring.cloud.client.ip-address}  # Auto-detects service IP
+    instance-id: ${spring.application.name}:${server.port}
+    metadata-map:
+      management.port: ${management.server.port:${server.port}}  # Ensure management port is include
 
 management:
+  server:
+    port: ${server.port}  # Use same port for actuator unless you want a separate port
   endpoints:
     web:
       exposure:
