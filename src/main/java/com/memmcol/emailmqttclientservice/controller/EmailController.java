@@ -41,7 +41,6 @@ public class EmailController {
         System.out.println(text);
         String htmlContent = generateEmailTemplate(request);
         try {
-            System.out.println(">>>>>>>>>>>>>> email service reached <<<<<<<<<<<<<<<<<<<");
             emailService.sendEmail(toAddress, subject, text, htmlContent);
             return ResponseMap.response(status.getSuccessCode(), "Email sent successfully!", "");
         } catch (Exception exception){
