@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.UUID;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -13,7 +14,7 @@ public class SbcSubscribeTopic implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
+	private UUID id;
 
 	private String sbcId;
 
@@ -46,11 +47,11 @@ public class SbcSubscribeTopic implements Serializable {
 		this.updatedAt = new Date();
 	}
 
-	public Long getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 
@@ -134,11 +135,11 @@ public class SbcSubscribeTopic implements Serializable {
 		this.hierarchyId = hierarchyId;
 	}
 
-	public Date getcreatedAt() {
+	public Date getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setcreatedAt(Date createdAt) {
+	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
 

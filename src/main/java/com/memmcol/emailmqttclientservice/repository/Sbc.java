@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.UUID;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -16,7 +17,7 @@ public class Sbc implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
+	private UUID id;
 
 	private String sbcId;
 
@@ -39,11 +40,11 @@ public class Sbc implements Serializable {
 		this.updatedAt = new Date();
 	}
 
-	public Long getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 
