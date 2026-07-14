@@ -9,5 +9,4 @@ class EmailMqttClientServiceApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }
