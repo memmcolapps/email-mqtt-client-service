@@ -278,6 +278,13 @@ jobs:
           sed -i "s|\${SMTP_PORT}|${{ secrets.SMTP_PORT }}|g" email-mqtt-client-service.xml
           sed -i "s|\${SMTP_EMAIL}|${{ secrets.SMTP_EMAIL }}|g" email-mqtt-client-service.xml
           sed -i "s|\${SMTP_PASSWORD}|${{ secrets.SMTP_PASSWORD }}|g" email-mqtt-client-service.xml
+          
+          sed -i "s|\${MONGO_DB}|${{ secrets.MONGO_DB }}|g" email-mqtt-client-service.xml
+          sed -i "s|\${MONGO_USERNAME}|${{ secrets.MONGO_USERNAME }}|g" email-mqtt-client-service.xml
+          sed -i "s|\${MONGO_PASSWORD}|${{ secrets.MONGO_PASSWORD }}|g" email-mqtt-client-service.xml
+          sed -i "s|\${MONGO_HOST}|${{ secrets.MONGO_HOST }}|g" email-mqtt-client-service.xml
+          sed -i "s|\${MONGO_PORT}|${{ secrets.MONGO_PORT }}|g" email-mqtt-client-service.xml
+
 
           echo "Generated WinSW XML:"
 
