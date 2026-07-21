@@ -35,6 +35,11 @@
   <env name="SMTP_PORT" value="${SMTP_PORT}"/>
   <env name="SMTP_EMAIL" value="${SMTP_EMAIL}"/>
   <env name="SMTP_PASSWORD" value="${SMTP_PASSWORD}"/>
+  <env name="MONGO_PASSWORD" value="${MONGO_PASSWORD}"/>
+  <env name="MONGO_HOST" value="${MONGO_HOST}"/>
+  <env name="MONGO_PORT" value="${MONGO_PORT}"/>
+  <env name="MONGO_DB" value="${MONGO_DB}"/>
+  <env name="MONGO_USERNAME" value="${MONGO_USERNAME}"/>
 
   <log mode="roll-by-size">
     <sizeThreshold>10240</sizeThreshold>
