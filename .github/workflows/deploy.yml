@@ -82,18 +82,18 @@ jobs:
           
           ssh -o StrictHostKeyChecking=no $SERVER "cat > /${{secrets.LOCATION }}/.env.email" << EOF
           
-          EUREKA_ADDRESS=${{ secrets.EUREKA_ADDRESS }}
-          EUREKA_PORT=${{ secrets.EUREKA_PORT }}
-          LOCATION=${{ secrets.LOCATION }} 
-          DB_HOST=${{ secrets.DB_HOST }}
-          DB_PORT=${{ secrets.DB_PORT }}
-          DB_NAME=${{ secrets.DB_NAME }}
-          DB_USERNAME=${{ secrets.DB_USERNAME }}
-          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
-          SMTP_HOST=${{ secrets.SMTP_MONGO_HOST }}
-          SMTP_PORT=${{ secrets.SMTP_MONGO_PORT }}
-          SMTP_EMAIL=${{ secrets.SMTP_EMAIL }}
-          SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}
+          EUREKA_ADDRESS="${{ secrets.EUREKA_ADDRESS }}"
+          EUREKA_PORT="${{ secrets.EUREKA_PORT }}"
+          LOCATION="${{ secrets.LOCATION }}"
+          DB_HOST="${{ secrets.DB_HOST }}"
+          DB_PORT="${{ secrets.DB_PORT }}"
+          DB_NAME="${{ secrets.DB_NAME }}"
+          DB_USERNAME="${{ secrets.DB_USERNAME }}"
+          DB_PASSWORD="${{ secrets.DB_PASSWORD }}"
+          SMTP_HOST="${{  secrets.SMTP_HOST }}"
+          SMTP_PORT="${{ secrets.SMTP_PORT }}"
+          SMTP_EMAIL="${{ secrets.SMTP_EMAIL }}"
+          SMTP_PASSWORD="${{ secrets.SMTP_PASSWORD }}"
           EOF
           
           ssh -o StrictHostKeyChecking=no $SERVER "chmod 600 /${{secrets.LOCATION }}/.env.email"
@@ -158,18 +158,23 @@ jobs:
           echo "Writing env file..."
           ssh -o StrictHostKeyChecking=no $SERVER "cat > /${{secrets.LOCATION }}/.env.email" << EOF
 
-          EUREKA_ADDRESS=${{ secrets.EUREKA_ADDRESS }}
-          EUREKA_PORT=${{ secrets.EUREKA_PORT }}
-          LOCATION=${{ secrets.LOCATION }} 
-          DB_HOST=${{ secrets.DB_HOST }}
-          DB_PORT=${{ secrets.DB_PORT }}
-          DB_NAME=${{ secrets.DB_NAME }}
-          DB_USERNAME=${{ secrets.DB_USERNAME }}
-          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
-          SMTP_HOST=${{ secrets.SMTP_MONGO_HOST }}
-          SMTP_PORT=${{ secrets.SMTP_MONGO_PORT }}
-          SMTP_EMAIL=${{ secrets.SMTP_EMAIL }}
-          SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}
+          EUREKA_ADDRESS="${{ secrets.EUREKA_ADDRESS }}"
+          EUREKA_PORT="${{ secrets.EUREKA_PORT }}"
+          LOCATION="${{ secrets.LOCATION }}" 
+          DB_HOST="${{ secrets.DB_HOST }}"
+          DB_PORT="${{ secrets.DB_PORT }}"
+          DB_NAME="${{ secrets.DB_NAME }}"
+          DB_USERNAME="${{ secrets.DB_USERNAME }}"
+          DB_PASSWORD="${{ secrets.DB_PASSWORD }}"
+          SMTP_HOST="${{  secrets.SMTP_HOST }}"
+          SMTP_PORT="${{ secrets.SMTP_PORT }}"
+          SMTP_EMAIL="${{ secrets.SMTP_EMAIL }}"
+          SMTP_PASSWORD="${{ secrets.SMTP_PASSWORD }}"
+          MONGO_DB="${{ secrets.MONGO_DB  }}"
+          MONGO_USERNAME="${{ secrets.MONGO_USERNAME }}"
+          MONGO_PASSWORD="${{ secrets.MONGO_PASSWORD }}"
+          MONGO_HOST="${{ secrets.MONGO_HOST }}"
+          MONGO_PORT="${{ secrets.MONGO_PORT }}"
           EOF
 
           ssh -o StrictHostKeyChecking=no $SERVER "chmod 600 /${{secrets.LOCATION }}/.env.email"
