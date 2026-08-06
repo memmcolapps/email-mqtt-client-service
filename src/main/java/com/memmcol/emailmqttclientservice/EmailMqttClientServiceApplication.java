@@ -13,6 +13,4 @@ public class EmailMqttClientServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(EmailMqttClientServiceApplication.class, args);
     }
-
-
 }
