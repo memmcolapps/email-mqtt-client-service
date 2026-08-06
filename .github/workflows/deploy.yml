@@ -36,6 +36,21 @@ jobs:
           chmod +x ./mvnw
           ./mvnw clean package -DskipTests
 
+      # =====================
+      # Resolve JAR
+      # =====================
+      - name: Resolve JAR
+        run: |
+          JAR_FILE=$(find target -name "*.jar" ! -name "*original*.jar" | head -n 1)
+
+          if [ -z "$JAR_FILE" ]; then
+            echo "No JAR found"
+            exit 1
+          fi
+
+          echo "JAR_FILE=$JAR_FILE" >> $GITHUB_ENV
+          echo "Found: $JAR_FILE"
+
       # =====================================================
       # SSH SETUP (STAGING)
       # =====================================================
