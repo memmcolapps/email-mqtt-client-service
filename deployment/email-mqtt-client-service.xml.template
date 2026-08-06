@@ -1,0 +1,53 @@
+<service>
+
+  <id>email-mqtt-client-service</id>
+
+  <name>Email Service</name>
+
+  <description>Spring Boot Email</description>
+
+  <executable>java</executable>
+
+  <arguments>
+    -Xms512m
+    -Xmx2g
+    -XX:+UseG1GC
+    -Xlog:gc*:file=%BASE%\logs\gc.log:time
+
+    -Dspring.profiles.active=window
+
+    -XX:ErrorFile=%BASE%\logs\hs_err_pid%p.log
+
+    -jar "%BASE%\email-mqtt-client-service.jar"
+  </arguments>
+
+  <workingdirectory>%BASE%</workingdirectory>
+
+  <env name="EUREKA_ADDRESS" value="${EUREKA_ADDRESS}"/>
+  <env name="EUREKA_PORT" value="${EUREKA_PORT}"/>
+  <env name="WIN_LOCATION" value="${WIN_LOCATION}"/>
+  <env name="DB_HOST" value="${DB_HOST}"/>
+  <env name="DB_PORT" value="${DB_PORT}"/>
+  <env name="DB_NAME" value="${DB_NAME}"/>
+  <env name="DB_USERNAME" value="${DB_USERNAME}"/>
+  <env name="DB_PASSWORD" value="${DB_PASSWORD}"/>
+  <env name="SMTP_HOST" value="${SMTP_HOST}"/>
+  <env name="SMTP_PORT" value="${SMTP_PORT}"/>
+  <env name="SMTP_EMAIL" value="${SMTP_EMAIL}"/>
+  <env name="SMTP_PASSWORD" value="${SMTP_PASSWORD}"/>
+  <env name="MONGO_PASSWORD" value="${MONGO_PASSWORD}"/>
+  <env name="MONGO_HOST" value="${MONGO_HOST}"/>
+  <env name="MONGO_PORT" value="${MONGO_PORT}"/>
+  <env name="MONGO_DB" value="${MONGO_DB}"/>
+  <env name="MONGO_USERNAME" value="${MONGO_USERNAME}"/>
+
+  <log mode="roll-by-size">
+    <sizeThreshold>10240</sizeThreshold>
+    <keepFiles>5</keepFiles>
+  </log>
+
+  <onfailure action="restart" delay="10 sec"/>
+  <onfailure action="restart" delay="30 sec"/>
+  <onfailure action="restart" delay="60 sec"/>
+
+</service>
