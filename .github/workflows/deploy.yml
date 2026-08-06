@@ -5,7 +5,7 @@ on:
     branches:
       - staging
       - main
-      - window
+      - alfuttaim
 
 jobs:
   deploy-linux:
@@ -209,7 +209,7 @@ jobs:
           EOF
 
   deploy-windows:
-    if: github.ref == 'refs/heads/window'
+    if: github.ref == 'refs/heads/alfuttaim'
 
     runs-on: ubuntu-latest
 
