@@ -5,7 +5,7 @@ on:
     branches:
       - staging
       - main
-      - window
+      - alfuttaim
 
 jobs:
   deploy-linux:
@@ -35,6 +35,21 @@ jobs:
         run: |
           chmod +x ./mvnw
           ./mvnw clean package -DskipTests
+
+      # =====================
+      # Resolve JAR
+      # =====================
+      - name: Resolve JAR
+        run: |
+          JAR_FILE=$(find target -name "*.jar" ! -name "*original*.jar" | head -n 1)
+
+          if [ -z "$JAR_FILE" ]; then
+            echo "No JAR found"
+            exit 1
+          fi
+
+          echo "JAR_FILE=$JAR_FILE" >> $GITHUB_ENV
+          echo "Found: $JAR_FILE"
 
       # =====================================================
       # SSH SETUP (STAGING)
@@ -67,18 +82,18 @@ jobs:
           
           ssh -o StrictHostKeyChecking=no $SERVER "cat > /${{secrets.LOCATION }}/.env.email" << EOF
           
-          EUREKA_ADDRESS=${{ secrets.EUREKA_ADDRESS }}
-          EUREKA_PORT=${{ secrets.EUREKA_PORT }}
-          LOCATION=${{ secrets.LOCATION }} 
-          DB_HOST=${{ secrets.DB_HOST }}
-          DB_PORT=${{ secrets.DB_PORT }}
-          DB_NAME=${{ secrets.DB_NAME }}
-          DB_USERNAME=${{ secrets.DB_USERNAME }}
-          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
-          SMTP_HOST=${{ secrets.SMTP_MONGO_HOST }}
-          SMTP_PORT=${{ secrets.SMTP_MONGO_PORT }}
-          SMTP_EMAIL=${{ secrets.SMTP_EMAIL }}
-          SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}
+          EUREKA_ADDRESS="${{ secrets.EUREKA_ADDRESS }}"
+          EUREKA_PORT="${{ secrets.EUREKA_PORT }}"
+          LOCATION="${{ secrets.LOCATION }}"
+          DB_HOST="${{ secrets.DB_HOST }}"
+          DB_PORT="${{ secrets.DB_PORT }}"
+          DB_NAME="${{ secrets.DB_NAME }}"
+          DB_USERNAME="${{ secrets.DB_USERNAME }}"
+          DB_PASSWORD="${{ secrets.DB_PASSWORD }}"
+          SMTP_HOST="${{  secrets.SMTP_HOST }}"
+          SMTP_PORT="${{ secrets.SMTP_PORT }}"
+          SMTP_EMAIL="${{ secrets.SMTP_EMAIL }}"
+          SMTP_PASSWORD="${{ secrets.SMTP_PASSWORD }}"
           EOF
           
           ssh -o StrictHostKeyChecking=no $SERVER "chmod 600 /${{secrets.LOCATION }}/.env.email"
@@ -143,18 +158,23 @@ jobs:
           echo "Writing env file..."
           ssh -o StrictHostKeyChecking=no $SERVER "cat > /${{secrets.LOCATION }}/.env.email" << EOF
 
-          EUREKA_ADDRESS=${{ secrets.EUREKA_ADDRESS }}
-          EUREKA_PORT=${{ secrets.EUREKA_PORT }}
-          LOCATION=${{ secrets.LOCATION }} 
-          DB_HOST=${{ secrets.DB_HOST }}
-          DB_PORT=${{ secrets.DB_PORT }}
-          DB_NAME=${{ secrets.DB_NAME }}
-          DB_USERNAME=${{ secrets.DB_USERNAME }}
-          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
-          SMTP_HOST=${{ secrets.SMTP_MONGO_HOST }}
-          SMTP_PORT=${{ secrets.SMTP_MONGO_PORT }}
-          SMTP_EMAIL=${{ secrets.SMTP_EMAIL }}
-          SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}
+          EUREKA_ADDRESS="${{ secrets.EUREKA_ADDRESS }}"
+          EUREKA_PORT="${{ secrets.EUREKA_PORT }}"
+          LOCATION="${{ secrets.LOCATION }}" 
+          DB_HOST="${{ secrets.DB_HOST }}"
+          DB_PORT="${{ secrets.DB_PORT }}"
+          DB_NAME="${{ secrets.DB_NAME }}"
+          DB_USERNAME="${{ secrets.DB_USERNAME }}"
+          DB_PASSWORD="${{ secrets.DB_PASSWORD }}"
+          SMTP_HOST="${{  secrets.SMTP_HOST }}"
+          SMTP_PORT="${{ secrets.SMTP_PORT }}"
+          SMTP_EMAIL="${{ secrets.SMTP_EMAIL }}"
+          SMTP_PASSWORD="${{ secrets.SMTP_PASSWORD }}"
+          MONGO_DB="${{ secrets.MONGO_DB  }}"
+          MONGO_USERNAME="${{ secrets.MONGO_USERNAME }}"
+          MONGO_PASSWORD="${{ secrets.MONGO_PASSWORD }}"
+          MONGO_HOST="${{ secrets.MONGO_HOST }}"
+          MONGO_PORT="${{ secrets.MONGO_PORT }}"
           EOF
 
           ssh -o StrictHostKeyChecking=no $SERVER "chmod 600 /${{secrets.LOCATION }}/.env.email"
@@ -189,7 +209,7 @@ jobs:
           EOF
 
   deploy-windows:
-    if: github.ref == 'refs/heads/window'
+    if: github.ref == 'refs/heads/alfuttaim'
 
     runs-on: ubuntu-latest
 
