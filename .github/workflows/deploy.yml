@@ -208,7 +208,7 @@ jobs:
             echo "Deployment complete"
           EOF
 
-  deploy-windows:
+  deploy-alfuttaim:
     if: github.ref == 'refs/heads/alfuttaim'
 
     runs-on: ubuntu-latest
